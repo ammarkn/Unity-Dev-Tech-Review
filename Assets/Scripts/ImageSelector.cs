@@ -1,19 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ImageSelector : MonoBehaviour
 {
-    public GameObject quad1;
-    public GameObject quad2;
+    public GameObject firstImageObject;
+    public GameObject secondImageObject;
+    
+    public Button firstImageButton;
+    public Button secondImageButton;
 
-    public void ShowImage1() {
-        quad1.SetActive(true);
-        quad2.SetActive(false);
+    public GameObject firstImageQuad;
+    public GameObject secondImageQuad;
+
+    void Start() {
+        firstImageObject.SetActive(false);
+        secondImageObject.SetActive(false);
+
+        firstImageButton.onClick.AddListener(() => SelectImage(firstImageObject));
+        secondImageButton.onClick.AddListener(() => SelectImage(secondImageObject));
     }
 
-    public void ShowImage2() {
-        quad1.SetActive(false);
-        quad2.SetActive(true);
+    void SelectImage(GameObject selectedImage) {
+        firstImageButton.gameObject.SetActive(false);
+        secondImageButton.gameObject.SetActive(false);
+
+        firstImageQuad.SetActive(false);
+        secondImageQuad.SetActive(false);
+
+        selectedImage.SetActive(true);
     }
 }
