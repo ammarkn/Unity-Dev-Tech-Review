@@ -19,10 +19,4 @@ public class MusicToggler : MonoBehaviour
     public void MusicToggle() {
         music.SetActive(!music.activeSelf);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

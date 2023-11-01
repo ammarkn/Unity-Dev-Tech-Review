@@ -5,30 +5,32 @@ using UnityEngine.UI;
 
 public class ImageSelector : MonoBehaviour
 {
-    public GameObject firstImageObject;
-    public GameObject secondImageObject;
-    
+    public GameObject imageSelectorObject;
+    public GameObject firstImageEditor;
+    public GameObject secondImageEditor;
+
     public Button firstImageButton;
     public Button secondImageButton;
 
-    public GameObject firstImageQuad;
-    public GameObject secondImageQuad;
-
     void Start() {
-        firstImageObject.SetActive(false);
-        secondImageObject.SetActive(false);
+        // Hides the editors for both images
+        firstImageEditor.SetActive(false);
+        secondImageEditor.SetActive(false);
 
-        firstImageButton.onClick.AddListener(() => SelectImage(firstImageObject));
-        secondImageButton.onClick.AddListener(() => SelectImage(secondImageObject));
+        // Adds listener to each of the edit buttons to call the required function
+        firstImageButton.onClick.AddListener(() => SelectImage(firstImageEditor));
+        secondImageButton.onClick.AddListener(() => SelectImage(secondImageEditor));
     }
 
     void SelectImage(GameObject selectedImage) {
+        // Hides the edit buttons for both images
         firstImageButton.gameObject.SetActive(false);
         secondImageButton.gameObject.SetActive(false);
 
-        firstImageQuad.SetActive(false);
-        secondImageQuad.SetActive(false);
+        // Hides the image selection menu
+        imageSelectorObject.SetActive(false);
 
+        // Opens the editor for the selected image
         selectedImage.SetActive(true);
     }
 }

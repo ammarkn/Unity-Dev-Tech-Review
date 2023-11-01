@@ -13,35 +13,35 @@ public class BrightnessModifier : MonoBehaviour
     private Color defaultColor;
     private float defaultContrast = 1.0f;
     private bool isInverted = false;
-    private bool isReset = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Sets the default values of the sliders at the start
         defaultColor = imageMaterial.color;
-        // defaultContrast = imageMaterial.GetFloat("_Contrast");
         brightnessSlider.value = 0;
         contrastSlider.value = defaultContrast;
-
         imageMaterial.color = defaultColor;
         imageMaterial.SetFloat("_Contrast", defaultContrast);
         imageMaterial.SetFloat("_Invert", 0);
 
-        brightnessSlider.onValueChanged.AddListener(changeBrightness);
-        contrastSlider.onValueChanged.AddListener(changeContrast);
-
-        isReset = true;
+        // Adds listener to both sliders to modify the respective shader values
+        brightnessSlider.onValueChanged.AddListener(ChangeBrightness);
+        contrastSlider.onValueChanged.AddListener(ChangeContrast);
     }
 
-    void changeBrightness(float value) {
+    // Adjusts the brightness of the image material
+    void ChangeBrightness(float value) {
         imageMaterial.color = new Color(1 + value, 1 + value, 1 + value, 1);
     }
 
-    void changeContrast(float value) {
+    void ChangeContrast(float value) {
+        // Modifies the Contrast property of the custom shader
         imageMaterial.SetFloat("_Contrast", value);
     }
 
     public void ToggleInvertColors() {
+        // Toggles a flag for inverting the colors.
         isInverted = !isInverted;
         UpdateColors();
     }
@@ -55,19 +55,15 @@ public class BrightnessModifier : MonoBehaviour
         }
     }
 
-    void OnDisable() {
-        if(!isReset) return;
+    public void OnApplicationQuit() {
+        // Calls the ResetMaterial() function when the scene is stopped
+        ResetMaterial();
+    }
 
+    void ResetMaterial() {
+        // Resets the material to the default values
         imageMaterial.color = defaultColor;
         imageMaterial.SetFloat("_Contrast", defaultContrast);
         imageMaterial.SetFloat("_Invert", 0);
-        brightnessSlider.value = 0;
-        contrastSlider.value = defaultContrast;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
